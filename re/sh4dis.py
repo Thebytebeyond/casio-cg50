@@ -13,10 +13,17 @@ core. Good enough to read control flow, MMIO accesses, and call graphs.
 """
 import struct
 import sys
+from pathlib import Path
 
-IMG = r"F:\ru\myprojects\may\cg50\os\os_image\cg50_os_3.80.plain.bin"
-_data = open(IMG, "rb").read()
-
+try:
+    IMG = Path(__file__).with_name(sys.argv[1])
+    _data = IMG.read_bytes()
+except FileNotFoundError:
+    IMG = Path(sys.argv[1])
+    _data = IMG.read_bytes()
+except IndexError:
+    print('Error: no file specified')
+    sys.exit(1)
 
 def _off(va):
     return va & 0x0FFFFFFF
