@@ -5,7 +5,7 @@ Covers the integer + system/control instruction set used by OS/driver/ISR code
 (FPU ops are decoded coarsely as 'fpu ...'). Resolves PC-relative literal loads.
 
 This is reusable project infra: `from sh4dis import disasm` or run as a script:
-    python sh4dis.py 0x80001a40 0x80001b00
+    python sh4dis.py your-file.bin 0x80001a40 0x80001b00
 File offset of a vaddr = vaddr & 0x0FFFFFFF (P1/P2 both mirror the image).
 
 Not a verification oracle — Ghidra/casio-emu remain authoritative for the CPU
@@ -212,6 +212,6 @@ def disasm(start, end, label=""):
 
 
 if __name__ == "__main__":
-    a = int(sys.argv[1], 0) if len(sys.argv) > 1 else 0x80001a40
-    b = int(sys.argv[2], 0) if len(sys.argv) > 2 else a + 0xC0
+    a = int(sys.argv[2], 0) if len(sys.argv) > 2 else 0x80001a40
+    b = int(sys.argv[3], 0) if len(sys.argv) > 3 else a + 0xC0
     disasm(a, b)
